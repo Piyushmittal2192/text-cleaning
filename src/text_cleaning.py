@@ -14,14 +14,25 @@ class textCleaning:
         self.id2word = defaultdict(list)
         self.sentences = sentences
         self.process_clusters = list()
+        
+    def showClusterInfo(self):
+        for key, value in self.res.items():
+            print(" - *%s:* *%s:* %s" % (key, value['word_rep'], ", ".join(value['cluster_words'])))
+      
+    def take_cluster_input(self):
+        print('Current Clusters\n')
+        self.showClusterInfo()
+        self.process_clusters = input('Enter Clusters: ')
+        target_clusters = self.process_clusters.split(',')
+        return target_clusters
 
-    def flatten(self):
+    def flatten(self, sentences):
         return [item for sublist in self.sentences for item in sublist]
 
     def clean_by_clustering(self):
-        word_list = flatten(self.sentences)
+        word_list = self.flatten(self.sentences)
 
-        words = np.asarray(words) #So that indexing with a list will work
+        words = np.asarray(word_list) #So that indexing with a list will work
 
         # https://stackoverflow.com/q/54583102
         lev_similarity = -1*np.array([[lvt.distance(w1,w2) for w1 in words] for w2 in words])
@@ -42,7 +53,7 @@ class textCleaning:
                 self.word2id[word].append(sdx)
                 self.id2word[sdx].append(word)
 
-        target_clusters = take_cluster_input()
+        target_clusters = self.take_cluster_input()
 
         print('original sentences')
         print(self.sentences)
@@ -64,16 +75,3 @@ class textCleaning:
                     for i in words_ids:
                         modifiedSentences[ids_][i] = normalise_cluster
         return modifiedSentences
-    
-
-    def showClusterInfo(self):
-        for key, value in self.res.items():
-            print(" - *%s:* *%s:* %s" % (key, value['word_rep'], ", ".join(value['cluster_words'])))
-      
-    def take_cluster_input(self):
-        print('Current Clusters\n')
-        self.showClusterInfo()
-        self.process_clusters = input('Enter Clusters: ')
-        target_clusters = self.process_clusters.split(',')
-        return target_clusters
-  
