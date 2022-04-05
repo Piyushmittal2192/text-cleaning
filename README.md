@@ -1,2 +1,2 @@
-# text-cleaning
+# Text Cleaning
 Text Cleaning Library
