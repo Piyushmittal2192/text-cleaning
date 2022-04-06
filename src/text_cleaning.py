@@ -54,7 +54,7 @@ class textCleaning:
                 self.id2word[sdx].append(word)
 
         target_clusters = self.take_cluster_input()
-
+        print('\n')
         print('original sentences')
         print(self.sentences)
         print('\n')
@@ -64,7 +64,7 @@ class textCleaning:
             cluster_words = self.res[target_cluster]['cluster_words']
             print('Cluster representation is: ' + exemplar)
             print('Words in cluster are: ' + ', '.join(cluster_words))
-            normalise_cluster = input("Enter Normalised word for the Cluster")
+            normalise_cluster = input("Enter Normalised word for the Cluster: ")
             print('Normalise_cluster ' + str(target_cluster) +  ' with: ' + normalise_cluster)
 
             for word in cluster_words:
