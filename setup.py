@@ -21,6 +21,6 @@ setup(
     long_description_content_type="text/markdown",
     long_description=long_description,
     packages=find_packages(),
-    install_requires=['more_itertools', 'sklearn', 'collections', 'numpy', 'levenshtein']
+    install_requires=['more_itertools', 'sklearn', 'numpy', 'levenshtein']
     
 )
