@@ -1,6 +1,4 @@
 more_itertools
 sklearn
-collections
 numpy
 levenshtein
-copy
