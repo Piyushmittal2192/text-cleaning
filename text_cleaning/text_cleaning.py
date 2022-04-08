@@ -14,6 +14,7 @@ class textCleaning:
         self.id2word = defaultdict(list)
         self.sentences = sentences
         self.process_clusters = list()
+        self.modified_sentences = list()
         
     def showClusterInfo(self):
         for key, value in self.res.items():
@@ -28,6 +29,12 @@ class textCleaning:
 
     def flatten(self, sentences):
         return [item for sublist in self.sentences for item in sublist]
+    
+    def getModifiedSent(self):
+        if len(self.modified_sentences) > 0: 
+            return self.modified_sentences
+        else:
+            return "Nothing has been modified yet"
 
     def clean_by_clustering(self):
         word_list = self.flatten(self.sentences)
@@ -58,7 +65,7 @@ class textCleaning:
         print('original sentences')
         print(self.sentences)
         print('\n')
-        modifiedSentences = self.sentences
+        self.modified_sentences = copy.deepycopy(self.sentences)
         for target_cluster in target_clusters:
             exemplar = self.res[target_cluster]['word_rep']
             cluster_words = self.res[target_cluster]['cluster_words']
@@ -71,7 +78,8 @@ class textCleaning:
                 sentence_ids = self.word2id[word]
 
                 for ids_ in sentence_ids:
-                    words_ids = indexes = list(locate(modifiedSentences[ids_], lambda x: x == word)) 
+                    words_ids = indexes = list(locate(self.modified_sentences[ids_], lambda x: x == word)) 
                     for i in words_ids:
-                        modifiedSentences[ids_][i] = normalise_cluster
-        return modifiedSentences
+                        self.modified_sentences[ids_][i] = normalise_cluster
+        return self.modified_sentences
+    
